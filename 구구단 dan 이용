@@ -1,0 +1,14 @@
+//구구단
+void main() {
+  for (var i = 2; i < 10; i++) {
+    //단을 출력한다.
+    printDan(i);
+    print('');
+  }
+}
+
+void printDan(int dan) {
+    for (var j = 1; j < 10; j++) {
+      print( '$dan * $j = ${dan * j}' );
+  }
+}

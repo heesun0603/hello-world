@@ -1,0 +1,144 @@
+//dart 언어는 main 함수를 꼭 써주어야한다
+void main() {
+  /*
+  int a = 2;
+  double b = 3.1415;
+  String c = "문자열";
+  String c2 = '문자열2';
+  bool d = true; // or false
+  
+  //var 넣고 함수를 지정해줘서 들어가는 값에 따라 타입이 바뀐다
+  var a1 = 2; //int
+  var b1 = 3.1415; //double
+  var c1 = "문자열"; //String
+  var c3 = '문자열2'; //String
+  var d1 = true; // bool
+  */
+  
+  /*
+  //num의 활용
+  num v1 = 5; //num(정수)취급
+  num v2 = 5.12; //num(실수)취급
+  print(v1 is num);
+  print(v2 is num);
+  
+  //num이지만 정체성에 따라 true와 false를 나뉠 수 있다
+  print(v1 is int);
+  print(v2 is double);
+  */
+  
+  /*
+  //상수 : final(실행 중일때 값 변경x), const(실행 중일 때 값 적용)
+  // final int value = 15; 
+  final value = 15; // 변수 생략 가능
+  print(value);
+  // value = 1; //값 변경 x 오루남
+  
+  const value1 = 15; // 변수 생략 가능
+  print(value1);
+  */
+  
+  /*
+  // dart는 정수 / 정수를 false로 처리함 값의 답이 실수가 나오면 정수에는 false로 뜬다
+  // 나누기해서 값이 정수가 나오는 숫자가 들어있을 경우 정수와 실수 다 true로 뜬다
+  // 한번쯤 확인해주는게 좋다
+  var v = 5 + 4;
+  print(v); //정수
+  */
+  
+  /*
+  //증감연산자
+  var vv = 5;
+  vv++; 
+  print(vv); //정수
+  */
+  /*
+  //비교연산자
+  var vv = 6;
+  if (vv==5) {
+    print("참!");
+  } else {
+    print("거짓!");
+  }
+  */
+  /*
+  //논리연산자
+  var a = true;
+  var b = false;
+  var c1 = a && b;
+  var c2 = a || b;
+  var c3 = a != b;
+  print(c1);
+  print(c2);
+  print(c3);
+  */
+  
+  /*
+  //5와 5.0을 구분하지 않는다
+  print(5 is double); //true가 나오는 이유
+  */
+  /*
+  //print() 함수를 이용해서 출력의 앞과 뒤에 *을 넣어주는 함수
+  // 예 ) * 안녕 *
+  var a = '안녕';
+  var b = '*';
+  print(b + a + b);
+  
+  print2 ("안녕");
+//}
+
+void print2(String message) {
+  print('*$message*');
+}
+*/
+
+  /*
+  //파보나치 수열을 구하자
+  //파보나치 수열 결과를 반환하는 함수를 f()로 하고 인자로 위치를 넣으며 그 값을 반환해라
+  //f(0) -> 1
+  //f(1) -> 1
+  //f(2) -> 2 //f(0) + f(1)
+  //f(3) -> 3 //f(1) + f(2)
+  //f(4) -> 4 //f(2) + f(3)
+  //f(5) -> 5 //f(3) + f(4)
+  
+  print(f(5));
+  
+}
+
+int f(n) {
+    return n < 2 ? 1 : f(n-2) + f(n-1);
+  }
+*/
+
+  /*
+  //익명함수 (변수에 함수를 넣어줄 수 있는게 익명함수, 다른값도 넣을 수 있음)
+  var lottoNums = [ 5, 6, 11, 13, 17, 21 ];
+  lottoNums.forEach((num) {
+    print(num);
+  });
+  
+  //lottoNums.forEach((num) => print(num)); //한줄로
+  
+  //익명함수 다른값
+  lottoNums.forEach((num) {
+    print(num * 2);
+  });
+  */
+  
+  /*
+  //for문 사용
+  var items = ['짜장', '라면', '볶음밥'];
+  for (var i = 0; i < items.length; i++) {
+    print(items[i]);
+  }
+  
+  //이렇게 쓰는 걸 좀 더 선호
+  for(var item in items) {
+    print(item);
+  }
+  
+  //한줄로
+  items.forEach((item) => print(item));
+  */
+

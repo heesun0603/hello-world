@@ -1,0 +1,8 @@
+void main() {
+  for (int number = 1; number <= 9; number++) {
+    for (int i = 1; i <= 9; i++) {
+      print('$number * $i = ${number * i}');
+    }
+    print(''); // 각 단 사이에 빈 줄을 추가
+  }
+}

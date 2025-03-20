@@ -1,0 +1,11 @@
+void main() {
+  // 입력 날짜 (년-월-일 형식)
+  String input = '2025-03-20';
+  
+  // 문자열을 DateTime 객체로 변환
+  DateTime date = DateTime.parse(input);
+  
+  // 요일을 출력 (화요일과 같은 한글 요일 출력)
+  List<String> weekDays = ['일', '월', '화', '수', '목', '금', '토'];
+  print(weekDays[date.weekday]);  // 1: 일요일, 2: 월요일, ... 7: 토요일
+}

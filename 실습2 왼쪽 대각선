@@ -1,0 +1,24 @@
+void main() {
+  var n = 11; // 크기 설정, 홀수로 설정하는 것이 좋음
+  var result = "";
+
+  for (var y = 0; y < n; y++) {
+    for (var x = 0; x < n; x++) {
+      // 위와 아래에는 '='을 출력
+      if (y == 0 || y == n - 1) {
+        result += "=";
+      }
+
+      // 왼쪽 대각선에 '='만 출력
+      else if (y == x) {
+        result += "=";
+      }
+      else {
+        result += " ";
+      }
+    }
+    result += "\n"; // 행 끝에서 줄바꿈
+  }
+
+  print(result);
+}

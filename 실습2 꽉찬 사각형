@@ -1,0 +1,13 @@
+void main() {
+  var n = 11; // 크기 설정
+  var result = "";
+
+  for (var y = 0; y < n; y++) {
+    for (var x = 0; x < n; x++) {
+      result += "="; // 모든 위치에 '='를 출력
+    }
+    result += "\n"; // 행 끝에서 줄바꿈
+  }
+
+  print(result);
+}

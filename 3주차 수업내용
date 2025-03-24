@@ -1,0 +1,72 @@
+class Person {
+  String _name;
+  int _age;
+  String _desc;
+  
+  Person(this._name, this._age, this._desc);
+  
+  void addOneYear() {
+    _age++;
+  }
+  
+  String get name => _name;
+  int get age => _age;
+  String get desc => '$_desc!!!'; //느낌표 고정
+  set desc(String v) => _desc = v;
+ 
+}
+
+void main() {
+  var na = Person('김희선', 28, '김희선은 김희성이다.');
+  //na.name = '김희선'; 수정이 그냥 되게 해버리면 프로그램의 버그를 가져올 수 있음
+  //na.age = 28;   이름과 나이를 고정시키기로 함
+  print([na.name, na.age, na.desc]);
+                  
+  //na.name = '김희성';
+  //na.age++;
+  na.addOneYear();
+  na.desc = '아니다. 김희상이다.';
+  print([na.name, na.age, na.desc]);
+  
+  
+}
+
+class Person {
+  String? name;
+  int? age;
+
+  
+  Person({this.name, this.age});
+  
+  
+
+}
+
+void main() {
+  var p = Person(); //nume: null, age: null;
+  var p2 = Person(name: '김희선'); //nane:'감희선', age: null;
+  var p3 = Person(age: 28); //nume: null, age: 28;
+  var p4 = Person(name: '김희선', age: 28);
+  
+}
+
+class Rectangle {
+  // 사각형을 왼쪽, 상단, 너비, 높이로 표현
+  num left, top, width, height;
+  
+  Rectangle(this.left, this.top, this.width, this.height);
+  
+  // 오른쪽, 하단은 필드를 생성하지 않고 get/set으로 계산하여 표현
+  num get right => left + width;
+  set right(num value) => left = value - width;
+  num get bottom => top + height;
+  set bottom(num value) => top = value - height;
+
+}
+
+void main() {
+  var r1 = Rectangle(5, 10, 20, 25);
+  print([r1.left, r1.top, r1.width, r1.height]);
+  print([r1.width, r1.height]);
+
+}

@@ -1,0 +1,54 @@
+setwd("c:r_workdata")
+
+Sys.setlocale("LC_ALL", "Korean")
+
+library(lubridate)
+
+
+# 서로 다른 데이터 타입 처리 객체
+# 1. list
+# - 백터와 비슷한 형태(키, 값)으로 저장
+
+
+
+l1 = list(name = '홍길동',
+          addr = '서울',
+          tel = '010-1111-1111',
+          pay = 500)
+l1
+
+#특정 키만 조회
+l1$addr
+
+#list에 요소를 추가/삭제
+l1$birth = '2003'
+l1$birth
+
+l1$name = c('고길동', '마이콜')
+l1$name #덮어쓰기 됨
+
+l1$name[length(l1$name)+1] = '홍길동'
+l1$name # 마지막에 삽입하기
+
+#append() 사용
+l1$name = append(l1$name, '둘리', after =1)
+l1$name #원하는 부분에 삽입
+
+#list 삭제
+# 1. 특정 값을 삭제
+l1$name[length(l1$name)-1] = NA
+l1$name
+
+# 2. 리스트 키 삭제
+l1$birth = NULL # birth 키 삭제
+
+# 2. dataframe
+# 2-1 각 컬럼(라벨)별로 먼저 생성 후 data.frame으로 모든 컬럼을 합친다
+no = c(1,2,3,4)
+name = c('Apple', 'Banana', 'Peach', 'Graph')
+price = c(500,200,100,300)
+qty = c(5,2,4,7)
+sales = data.frame(NO=no, NAME=name, PRICE=price, QTY=qty)
+sales
+class(sales)
+str(sales)

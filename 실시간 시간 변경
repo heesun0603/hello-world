@@ -1,0 +1,63 @@
+import 'package:flutter/material.dart';
+import 'dart:async';  // Timer 사용을 위한 패키지
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: DateTimeDisplay(),
+    );
+  }
+}
+
+class DateTimeDisplay extends StatefulWidget {
+  @override
+  _DateTimeDisplayState createState() => _DateTimeDisplayState();
+}
+
+class _DateTimeDisplayState extends State<DateTimeDisplay> {
+  String _timeString = "";
+  String _dateString = "";
+
+  @override
+  void initState() {
+    super.initState();
+    // 시간 업데이트를 위한 Timer
+    Timer.periodic(Duration(seconds: 1), (Timer t) => _updateTime());
+    _updateTime();
+  }
+
+  void _updateTime() {
+    final now = DateTime.now();
+    final isAm = now.hour < 12;
+    final hour = now.hour % 12 == 0 ? 12 : now.hour % 12; // 12시간 형식으로
+    final minute = now.minute.toString().padLeft(2, '0');
+    final second = now.second.toString().padLeft(2, '0');
+
+    // 날짜 포맷 (예: 2025년 4월 6일)
+    final date = "${now.year}년 ${now.month}월 ${now.day}일";
+
+    // 오전/오후 + 시간, 분, 초
+    final time = "${isAm ? '오전' : '오후'} $hour:$minute:$second";
+
+    setState(() {
+      _dateString = date;
+      _timeString = time;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      backgroundColor: Colors.white,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Text(

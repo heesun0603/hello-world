@@ -64,4 +64,22 @@ class _DateTimeDisplayState extends State<DateTimeDisplay> {
               _dateString,  // 날짜
               style: TextStyle(
                 fontSize: 40,
-
+                fontWeight: FontWeight.bold,
+                color: Colors.black,
+              ),
+            ),
+            SizedBox(height: 20),
+            Text(
+              _timeString,  // 시간
+              style: TextStyle(
+                fontSize: 60,
+                fontWeight: FontWeight.bold,
+                color: Colors.blue,
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}

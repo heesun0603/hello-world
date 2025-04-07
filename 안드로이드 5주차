@@ -1,0 +1,282 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Flutter Demo',
+      theme: ThemeData(
+
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.deepPurple),
+      ),
+      home: MyHomePage(),
+    );
+  }
+}
+
+class MyHomePage extends StatelessWidget {
+  final items = List.generate(100, (i) => i).toList();
+  MyHomePage({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('제목'),
+      ),
+  //     //body: Container(
+      //  width: 100,
+      //  height: 100,
+      //  margin: EdgeInsets.all(80.0),
+      //  padding: EdgeInsets.all(16.0),
+      //  color: Colors.blue,
+      //  child: Text('다모아'),
+      //),
+    /* body: Column(
+          children: [
+            Container(
+              width: 100,
+              height: 100,
+              margin: EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(16.0),
+              color: Colors.blue,
+              child: Text('모도리'),
+
+            ),
+            Container(
+              width: 100,
+              height: 100,
+              margin: EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(16.0),
+              color: Colors.red,
+              child: Text('모도리'),
+            ),
+            Container(
+              width: 100,
+              height: 100,
+              margin: EdgeInsets.all(10.0),
+              padding: EdgeInsets.all(16.0),
+              color: Colors.green,
+              child: Text('모도리'),
+            ),
+          ],
+        )*/
+    // body: Row(
+    // children: [
+    // Container(
+    // width: 100,
+    // height: 100,
+    // margin: EdgeInsets.all(10.0),
+    // padding: EdgeInsets.all(16.0),
+    // color: Colors.blue,
+    // child: Text('다모일'),
+    //
+    // ),
+    // Container(
+    // width: 100,
+    // height: 100,
+    // margin: EdgeInsets.all(10.0),
+    // padding: EdgeInsets.all(16.0),
+    // color: Colors.red,
+    // child: Text('다모이'),
+    // ),
+    // Container(
+    // width: 100,
+    // height: 100,
+    // margin: EdgeInsets.all(10.0),
+    // padding: EdgeInsets.all(16.0),
+    // color: Colors.green,
+    // child: Text('다모삼'),
+    // ),
+    // ],
+    // )
+    //   body: Stack(
+    //     children: [
+    //       Center(
+    //         child: Container(
+    //         color: Colors.red,
+    //           width: 100,
+    //         height: 100,
+    //         padding: const EdgeInsets.all(8.0),
+    //         margin: const EdgeInsets.all(8.0),
+    //       )
+    // ),
+    //
+    //       Center(
+    //       child: Container(
+    //         color: Colors.green,
+    //           width: 80,
+    //         height: 80,
+    //         padding: const EdgeInsets.all(8.0),
+    //         margin: const EdgeInsets.all(8.0),
+    //
+    // )
+    // ),
+    //       Center(
+    // child: Container(
+    //         color: Colors.blue,
+    //         width: 60,
+    //         height: 60,
+    //         padding: const EdgeInsets.all(8.0),
+    //         margin: const EdgeInsets.all(8.0),
+    //         child: Center(child: Text('다모아')),
+    //       )
+    //       ),
+    //     ],
+    //   ),
+    //   body: SingleChildScrollView(
+    //     child: ListBody(
+    //       children: items.map((i) => Text('$i')).toList(),
+    //     ),
+    //   ),
+    //   body: ListView(
+    //     scrollDirection: Axis.vertical,
+    //     children: [
+    //       ListTile(
+    //         leading: Icon(Icons.home),
+    //         title: Text('홈'),
+    //           trailing: Icon(Icons.navigate_next),
+    //           onTap: () {},
+    //
+    //       ),
+    //       ListTile(
+    //         leading: Icon(Icons.home),
+    //         title: Text('이벤트'),
+    //         trailing: Icon(Icons.navigate_next),
+    //         onTap: () {},
+    //
+    //       ),
+    //       ListTile(
+    //         leading: Icon(Icons.home),
+    //         title: Text('카메라'),
+    //         trailing: Icon(Icons.navigate_next),
+    //         onTap: () {},
+    //
+    //       ),
+    //
+    //      ],
+    //   ),
+    //   body: GridView.count(
+    //       crossAxisCount: 2,
+    //       children: [
+    //         Container(
+    //           color: Colors.red,
+    //           width: 100,
+    //           height: 100,
+    // padding: const EdgeInsets.all(80.0),
+    // margin: const EdgeInsets.all(8.0),
+    // child: Text('다모아'),
+    //
+    //
+    //         ),
+    //         Container(
+    //           color: Colors.green,
+    //           width: 100,
+    //           height: 100,
+    // padding: const EdgeInsets.all(8.0),
+    // margin: const EdgeInsets.all(8.0),
+    // child: Text('다모아'),
+    //         ),
+    //         Container(
+    //           color: Colors.blue,
+    //           width: 100,
+    //           height: 100,
+    // padding: const EdgeInsets.all(8.0),
+    // margin: const EdgeInsets.all(8.0),
+    // child: Text('다모아'),
+    //         ),
+    //       ]
+    //   )
+    //   body: PageView(
+    //     children: [
+    //       Container(
+    //         color: Colors.red,
+    //   ),
+    //   Container(
+    //     color: Colors.green,
+    //   ),
+    //   Container(
+    //     color: Colors.blue,
+    //   ),
+    //
+    //     ],
+    //   ),
+    //   body: Text('!'),
+    //   bottomNavigationBar: BottomNavigationBar(items: [
+    //     BottomNavigationBarItem(
+    //       icon: Icon(Icons.home),
+    //       label: 'Home',
+    //     ),
+    //     BottomNavigationBarItem(
+    //       icon: Icon(Icons.person),
+    //       label: 'person',
+    //     ),
+    //     BottomNavigationBarItem(
+    //       icon: Icon(Icons.notifications),
+    //       label: 'notifications',
+    //     ),
+    //   ]),
+    //   body: Center(
+    //     child: Text('봄이 왔습니다.')
+    //   ),
+    //   body: Padding(padding: const EdgeInsets.all(80.0),
+    // child: Container(
+    // color: Colors.red),
+    // ),
+    //   body: Align(
+    //     alignment: Alignment.topLeft,
+    //     child: Container(
+    //       width: 100,
+    //       height: 100,
+    //       color: Colors.red,
+    //     ),
+    //   ),
+    //   body: Column(
+    //     children: [
+    //       Expanded(
+    //         flex: 2,
+    //     child: Container(
+    //         color: Colors.red
+    //       ),),
+    //       Expanded(child: Container(
+    //         color: Colors.green
+    //       ),),
+    //       Expanded(child: Container(
+    //         color: Colors.blue
+    //       ),),
+    //     ],
+    //   ),
+    //   body: SizedBox(
+    //     width: 400,
+    //     height: 400,
+    //     child: Container(
+    //       color: Colors.red,
+    //     ),
+    //   ),
+      body: Center(
+        child: Card(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16.0),
+
+          ),
+          elevation: 4.0,
+          child: Container(
+            width: 200,
+            height: 200,
+            child: Center(
+              child: Text('생일 축하 합니다!'),
+            ),
+          ),
+        ),
+      ),
+     );
+  }
+}

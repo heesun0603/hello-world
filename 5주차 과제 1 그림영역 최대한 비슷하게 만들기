@@ -1,0 +1,60 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      home: Scaffold(
+        body: SafeArea(
+          child: Column(
+            children: [
+              // 상단 영역
+              Expanded(
+                flex: 1,
+                child: Row(
+                  children: [
+                    // 빨강 박스 (좌측 절반)
+                    Expanded(
+                      flex: 1,
+                      child: Container(color: Colors.red),
+                    ),
+                    // 파랑 + 검정/주황 (우측 절반)
+                    Expanded(
+                      flex: 1,
+                      child: Column(
+                        children: [
+                          // 파랑 박스 (상단 절반)
+                          Expanded(
+                            flex: 1,
+                            child: Container(color: Colors.blue),
+                          ),
+                          // 검정 + 주황 박스 (하단 절반)
+                          Expanded(
+                            flex: 1,
+                            child: Row(
+                              children: [
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(color: Colors.black),
+                                ),
+                                Expanded(
+                                  flex: 1,
+                                  child: Container(color: Colors.orange),
+                                ),
+                              ],
+                            ),
+                          ),
+      
+                ),
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+}

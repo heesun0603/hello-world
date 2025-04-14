@@ -1,0 +1,51 @@
+import 'package:flutter/material.dart';
+import 'package:a3_6_2/test_CheckBox.dart';
+
+class TestCheckBox extends StatefulWidget {
+  const TestCheckBox({super.key});
+
+  @override
+  State<TestCheckBox> createState() => _ChexkBoxState();
+}
+
+class _ChexkBoxState extends State<TestCheckBox> {
+  bool? isChexked1 = false;
+  bool isChexked2 = false;
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+
+        title: Text('Checkbox / Switch 테스트'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Checkbox(
+              value: isChexked1,
+              onChanged: (value) {
+                setState(() {
+                  isChexked1 = value;
+                });
+              },
+            ),
+
+            SizedBox(height: 80),
+
+            Switch(
+              value: isChexked2,
+              onChanged: (value) {
+                setState(() {
+                  isChexked2 = value;
+                });
+              },
+            ),
+          ],
+        ),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}

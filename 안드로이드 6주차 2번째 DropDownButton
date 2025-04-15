@@ -1,0 +1,48 @@
+import 'package:flutter/material.dart';
+import 'package:a3_6_2/test_CheckBox.dart';
+import 'package:a3_6_2/test_Radio.dart';
+
+
+class DropDownButton extends StatefulWidget {
+  const DropDownButton({super.key});
+
+  @override
+  State<DropDownButton> createState() => _DropDownButtonState();
+}
+
+class _DropDownButtonState extends State<DropDownButton> {
+final _valueList = ['첫 번째', '두 번째', '세 번째'];
+String? _SelectedValue = '첫 번째';
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        backgroundColor: Theme.of(context).colorScheme.inversePrimary,
+
+        title: Text('DropDownButton 테스트'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            DropDownButton(
+              value : _SelectedValue,
+              items:
+              _valueList.map(value) {
+                return DropdownMenuItem(
+                value: value,
+                child:Text(value),
+                );
+            }).toList(),
+            onChanged: (value) {
+            setState(() {
+              _selectedValue = value;
+            });
+            }
+          ],
+        ),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}

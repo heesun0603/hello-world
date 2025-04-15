@@ -1,0 +1,49 @@
+import 'package:flutter/material.dart';
+import 'package:a3_6_2/test_CheckBox.dart';
+
+class TestDialog extends StatefulWidget {
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        
+        title: Text('다이얼로그 테스트'),
+      ),
+      body: Padding(padding: EdgeInsets.all(16.0),
+      child: Column(
+        children: [
+            ElevatedButton(onPressed: () {
+            showDialog(context: context,
+                builderDismissible: false,
+            builder: (BuildVontext context) {
+              return: Text('제목'),
+              content: StngleChildScrollView(
+              child: LisBody(
+              children: [
+                ElevatedButton(onPressed: () {
+                  showDialog(
+                  context: context {
+                    barrierDismIssble: false,
+              builder: (BuildContext context) {
+                      return SleriDial
+              }
+
+ }
+                  )
+              })
+              ]
+              )
+              )
+            })
+          })
+        ],
+      ))
+
+          ],
+        ),
+      ), // This trailing comma makes auto-formatting nicer for build methods.
+    );
+  }
+}

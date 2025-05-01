@@ -1,0 +1,110 @@
+import 'package:flutter/material.dart';
+
+void main() => runApp(MyApp());
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: '복잡한 UI',
+      home: ComplexUIScreen(),
+      debugShowCheckedModeBanner: false,
+    );
+  }
+}
+
+class ComplexUIScreen extends StatelessWidget {
+  final List<Map<String, dynamic>> categoryItems = [
+    {'icon': Icons.local_taxi, 'label': '택시'},
+    {'icon': Icons.directions_bus, 'label': '버스'},
+    {'icon': Icons.electric_bike, 'label': '바이크'},
+    {'icon': Icons.local_mall, 'label': '마켓'},
+    {'icon': Icons.train, 'label': '기차'},
+    {'icon': Icons.directions_boat, 'label': '배'},
+    {'icon': Icons.airplanemode_active, 'label': '비행기'},
+    {'icon': Icons.directions_walk, 'label': '도보'},
+  ];
+
+  final List<String> sliderImages = [
+    'assets/image1.jpg',
+    'assets/image2.jpg',
+  ];
+
+  final List<String> noticeList = List.generate(
+    10,
+    (index) => '[이벤트] 이것은 공지사항입니다',
+  );
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('복잡한 UI'),
+        actions: [
+          IconButton(
+            icon: Icon(Icons.add),
+            onPressed: () {},
+          ),
+        ],
+      ),
+      body: ListView(
+        children: [
+          _buildCategoryGrid(),
+          SizedBox(height: 12),
+          _buildImageSlider(),
+          Divider(),
+          ..._buildNoticeList(),
+        ],
+      ),
+      bottomNavigationBar: BottomNavigationBar(
+        items: const [
+          BottomNavigationBarItem(icon: Icon(Icons.home), label: '홈'),
+          BottomNavigationBarItem(icon: Icon(Icons.notifications), label: '공지'),
+          BottomNavigationBarItem(icon: Icon(Icons.person), label: '내 프로필'),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildCategoryGrid() {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      child: GridView.builder(
+
+        },
+      ),
+    );
+  }
+
+  Widget _buildImageSlider() {
+    return SizedBox(
+      height: 180,
+      child: PageView.builder(
+        itemCount: sliderImages.length,
+        itemBuilder: (context, index) {
+          return Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                sliderImages[index],
+                fit: BoxFit.cover,
+                width: double.infinity,
+              ),
+            ),
+          );
+        },
+      ),
+    );
+  }
+
+  List<Widget> _buildNoticeList() {
+    return noticeList.map((text) {
+      return ListTile(
+        leading: Icon(Icons.notifications_none),
+        title: Text(text),
+        contentPadding: EdgeInsets.symmetric(horizontal: 16),
+      );
+    }).toList();
+  }
+}

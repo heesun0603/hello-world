@@ -1,0 +1,473 @@
+import 'package:flutter/material.dart';
+
+void main() {
+  runApp(GachaShopDesignApp());
+}
+
+
+
+class GachaShopDesignApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: '가챠샵 디자인',
+      theme: ThemeData(
+        primaryColor: Colors.pink[100],
+        scaffoldBackgroundColor: Colors.pink[50],
+        useMaterial3: true,
+        colorScheme: ColorScheme.fromSwatch().copyWith(
+          primary: Colors.pink[300],
+          secondary: Colors.pink[100],
+        ),
+      ),
+      home: GachaShopDesignPage(),
+    );
+  }
+}
+
+class GachaShopDesignPage extends StatefulWidget {
+  @override
+  _GachaShopDesignPageState createState() => _GachaShopDesignPageState();
+}
+
+class _GachaShopDesignPageState extends State<GachaShopDesignPage> {
+  // Map에 isFavorite 속성 추가
+  List<Map<String, dynamic>> gachaShops = [
+    {
+      //발표를 위해 샘플 만들어 둔 것 
+      'name': '가챠천국 홍대',
+      'area': '홍대',
+      'start': '10:00 AM',
+      'end': '10:00 PM',
+      'address': '서울 마포구 홍익로 1길',
+      'image': 'assets/sample_store.jpg',
+      'isFavorite': false,
+    },
+    {
+      'name': '수빈 가챠 건대',
+      'area': '건대',
+      'start': '09:00 AM',
+      'end': '10:00 PM',
+      'address': '서울 광진구 아차산로 2길',
+      'image': 'assets/sample_store.jpg',
+      'isFavorite': false,
+    },
+    {
+      'name': '채원 가챠 강남',
+      'area': '강남',
+      'start': '00:00 AM',
+      'end': '00:00 PM',
+      'address': '서울 강남구 선릉로',
+      'image': 'assets/sample_store.jpg',
+      'isFavorite': false,
+    },
+    {
+      'name': '수빈 가챠 홍대',
+      'area': '홍대',
+      'start': '10:00 AM',
+      'end': '10:00 PM',
+      'address': '서울 마포구 홍익로 3길',
+      'image': 'assets/sample_store.jpg',
+      'isFavorite': false,
+    },
+    {
+      'name': '가챠뽑쟈 사당',
+      'area': '사당',
+      'start': '10:00 AM',
+      'end': '10:00 PM',
+      'address': '서울 사랑구 행복동',
+      'image': 'assets/sample_store.jpg',
+      'isFavorite': false,
+    },
+    // 더 추가 가능
+  ];
+
+  List<Map<String, dynamic>> filteredShops = [];
+  String searchArea = '';
+
+  @override
+  void initState() {
+    super.initState();
+    filteredShops = List.from(gachaShops);
+    _sortShops();
+  }
+
+  void _sortShops() {
+    // 즐겨찾기 상점 먼저 오도록 정렬
+    filteredShops.sort((a, b) {
+      bool favA = a['isFavorite'] ?? false;
+      bool favB = b['isFavorite'] ?? false;
+      if (favA && !favB) return -1;
+      if (!favA && favB) return 1;
+      return 0;
+    });
+  }
+
+  void _filterShops(String input) {
+    setState(() {
+      searchArea = input.trim();
+      if (searchArea.isEmpty) {
+        filteredShops = List.from(gachaShops);
+      } else {
+        filteredShops = gachaShops.where((shop) {
+          final area = (shop['area'] ?? '').toLowerCase();
+          final name = (shop['name'] ?? '').toLowerCase();
+          return area.contains(searchArea.toLowerCase()) ||
+              name.contains(searchArea.toLowerCase());
+        }).toList();
+      }
+      _sortShops();
+    });
+  }
+
+  void _toggleFavorite(int index) {
+    setState(() {
+      final shop = filteredShops[index];
+      final originalIndex = gachaShops.indexWhere(
+              (element) => element['name'] == shop['name'] && element['area'] == shop['area']);
+      if (originalIndex != -1) {
+        // 원본 데이터 즐겨찾기 상태 토글
+        gachaShops[originalIndex]['isFavorite'] = !(gachaShops[originalIndex]['isFavorite'] ?? false);
+      }
+
+      // filteredShops를 원본 기준으로 다시 필터링하고 정렬
+      if (searchArea.isEmpty) {
+        filteredShops = List.from(gachaShops);
+      } else {
+        filteredShops = gachaShops.where((shop) {
+          final area = (shop['area'] ?? '').toLowerCase();
+          final name = (shop['name'] ?? '').toLowerCase();
+          return area.contains(searchArea.toLowerCase()) ||
+              name.contains(searchArea.toLowerCase());
+        }).toList();
+      }
+      _sortShops();
+    });
+  }
+
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('나만의 숨은 가챠샵'),
+        backgroundColor: Colors.pink[200],
+        elevation: 0,
+      ),
+      body: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Container(
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(30),
+              ),
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              child: TextField(
+                decoration: InputDecoration(
+                  hintText: '지역명 또는 상점명을 입력하세요',
+                  border: InputBorder.none,
+                  icon: Icon(Icons.search, color: Colors.grey),
+                ),
+                onChanged: _filterShops,
+              ),
+            ),
+          ),
+          Expanded(
+            child: filteredShops.isEmpty
+                ? Center(
+                child: Text(
+                  '검색 결과가 없습니다.',
+                  style: TextStyle(color: Colors.grey),
+                ))
+                : ListView.builder(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              itemCount: filteredShops.length,
+              itemBuilder: (context, index) {
+                final shop = filteredShops[index];
+                return Card(
+                  margin: EdgeInsets.symmetric(vertical: 8),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  color: Colors.white,
+                  elevation: 3,
+                  child: Stack(
+                    children: [
+                      InkWell(
+                        borderRadius: BorderRadius.circular(16),
+                        onTap: () => _showShopDetailDialog(shop),
+                        child: Padding(
+                          padding: const EdgeInsets.all(16.0),
+                          child: Row(
+                            children: [
+                              ClipRRect(
+                                borderRadius: BorderRadius.circular(8),
+                                child: Container(
+                                  width: 100,
+                                  height: 75,
+                                  decoration: BoxDecoration(
+                                    color: Colors.grey[300],
+                                    image: DecorationImage(
+                                      image: AssetImage(
+                                          shop['image'] ?? 'assets/sample_store.jpg'),
+                                      fit: BoxFit.cover,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                              SizedBox(width: 16),
+                              Expanded(
+                                child: Column(
+                                  crossAxisAlignment: CrossAxisAlignment.start,
+                                  children: [
+                                    Text('${shop['name']} (${shop['area']})',
+                                        style: TextStyle(
+                                            fontSize: 18, fontWeight: FontWeight.bold)),
+                                    SizedBox(height: 6),
+                                    Text('영업시간: ${shop['start']} ~ ${shop['end']}',
+                                        style: TextStyle(fontSize: 14, color: Colors.grey[700])),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      // 즐겨찾기 별 아이콘 - 오른쪽 상단
+                      Positioned(
+                        top: 8,
+                        right: 8,
+                        child: IconButton(
+                          icon: Icon(
+                            shop['isFavorite'] == true
+                                ? Icons.star
+                                : Icons.star_border,
+                            color: Colors.amber[700],
+                            size: 28,
+                          ),
+                          onPressed: () {
+                            _toggleFavorite(index);
+                          },
+                        ),
+                      ),
+                    ],
+                  ),
+                );
+              },
+            ),
+          ),
+        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.pink[300],
+        onPressed: _showStoreDetailsDialog,
+        child: Icon(Icons.add, color: Colors.white),
+        tooltip: '상점 추가',
+      ),
+    );
+  }
+
+  void _showShopDetailDialog(Map<String, dynamic> shop) {
+
+    showDialog(
+      context: context,
+      builder: (context) => Dialog(
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: ConstrainedBox(
+          constraints: BoxConstraints(maxWidth: 350),
+          child: Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Align(
+                  alignment: Alignment.topRight,
+                  child: IconButton(
+                    icon: Icon(Icons.close),
+                    onPressed: () => Navigator.pop(context),
+                  ),
+                ),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: List.generate(3, (index) {
+                    return ClipRRect(
+                      borderRadius: BorderRadius.circular(8),
+                      child: Container(
+                        width: 100,
+                        height: 75,
+                        decoration: BoxDecoration(
+                          color: Colors.grey[300],
+                          image: DecorationImage(
+                            image: AssetImage(
+                                shop['image'] ?? 'assets/sample_store.jpg'),
+                            fit: BoxFit.cover,
+                          ),
+                        ),
+                      ),
+                    );
+                  }),
+                ),
+                SizedBox(height: 12),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(shop['name'] ?? '',
+                          style: TextStyle(
+                              fontSize: 20, fontWeight: FontWeight.bold)),
+                      SizedBox(height: 10),
+                      Text('지역: ${shop['area']}', style: TextStyle(fontSize: 16)),
+                      Text('영업시간: ${shop['start']} ~ ${shop['end']}',
+                          style: TextStyle(fontSize: 16)),
+                      Text('주소: ${shop['address']}', style: TextStyle(fontSize: 16)),
+                      Align(
+                        alignment: Alignment.bottomLeft,
+                        child: TextButton(
+                          onPressed: () {
+                            // 오류신고 버튼 눌렀을 때 동작
+                            print('오류신고 버튼 클릭됨');
+                            Navigator.of(context).pop();
+                          },
+                          child: Text('오류신고'),
+                        ),
+                      ),
+
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  void _showStoreDetailsDialog() {
+    final TextEditingController storeNameController = TextEditingController();
+    final TextEditingController addressController = TextEditingController();
+    String selectedArea = '홍대';
+    TimeOfDay startTime = TimeOfDay(hour: 10, minute: 0);
+    TimeOfDay endTime = TimeOfDay(hour: 22, minute: 0);
+
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return StatefulBuilder(
+          builder: (context, setDialogState) {
+            return AlertDialog(
+              title: Text('상점 정보 입력'),
+              content: SingleChildScrollView(
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    DropdownButton<String>(
+                      value: selectedArea,
+                      onChanged: (String? newValue) {
+                        if (newValue != null) {
+                          setDialogState(() {
+                            selectedArea = newValue;
+                          });
+                        }
+                      },
+                      items: ['홍대', '건대', '잠실', '강남', '사당'].map((area) {
+                        return DropdownMenuItem<String>(
+                          value: area,
+                          child: Text(area),
+                        );
+                      }).toList(),
+                      isExpanded: true,
+                    ),
+                    SizedBox(height: 8),
+                    TextField(
+                      controller: storeNameController,
+                      decoration: InputDecoration(labelText: '상점명'),
+                    ),
+                    SizedBox(height: 8),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('영업 시작: ${startTime.format(context)}'),
+                        TextButton(
+                          onPressed: () async {
+                            TimeOfDay? picked = await showTimePicker(
+                              context: context,
+                              initialTime: startTime,
+                            );
+                            if (picked != null) {
+                              setDialogState(() {
+                                startTime = picked;
+                              });
+                            }
+                          },
+                          child: Text('시간 선택'),
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text('영업 종료: ${endTime.format(context)}'),
+                        TextButton(
+                          onPressed: () async {
+                            TimeOfDay? picked = await showTimePicker(
+                              context: context,
+                              initialTime: endTime,
+                            );
+                            if (picked != null) {
+                              setDialogState(() {
+                                endTime = picked;
+                              });
+                            }
+                          },
+                          child: Text('시간 선택'),
+                        ),
+                      ],
+                    ),
+                    TextField(
+                      controller: addressController,
+                      decoration: InputDecoration(labelText: '주소'),
+                    ),
+                  ],
+                ),
+              ),
+              actions: [
+                TextButton(
+                  child: Text('취소'),
+                  onPressed: () => Navigator.pop(context),
+                ),
+                TextButton(
+                  child: Text('저장'),
+                  onPressed: () {
+                    if (storeNameController.text.isEmpty ||
+                        addressController.text.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(content: Text('필수 정보를 입력하세요.')));
+                      return;
+                    }
+                    setState(() {
+                      gachaShops.add({
+                        'name': storeNameController.text,
+                        'area': selectedArea,
+                        'start': startTime.format(context),
+                        'end': endTime.format(context),
+                        'address': addressController.text,
+                        'image': 'assets/sample_store.jpg',
+                        'isFavorite': false,
+                      });
+                      _filterShops(searchArea); // 필터 갱신
+                    });
+                    Navigator.pop(context);
+                  },
+                ),
+              ],
+            );
+          },
+        );
+      },
+    );
+  }
+}
